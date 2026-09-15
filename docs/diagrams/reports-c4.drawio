@@ -1,0 +1,51 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Reports-C4-Containers" id="reports">
+    <mxGraphModel dx="1000" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="826" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="pilot" value="Pilot (Person)&#10;requests own report" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="spa" value="SPA Frontend [React]&#10;'Download report' button&#10;Bearer JWT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="70" width="200" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="api" value="Reports API [FastAPI]&#10;GET /reports&#10;JWT + role prothetic_user&#10;returns only own report" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="530" y="60" width="220" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="kc" value="Keycloak [IdP]&#10;issues/validates JWT (JWKS)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="270" y="230" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ch" value="OLAP [ClickHouse]&#10;mart user_reports&#10;ORDER BY (user_id, period)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="820" y="60" width="220" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="airflow" value="Airflow [ETL DAG]&#10;crm_to_olap_reports&#10;@daily: extract -> aggregate -> load" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="820" y="230" width="220" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="crm" value="CRM / DB [Postgres]&#10;clients + telemetry (sensors)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="820" y="390" width="220" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" style="endArrow=block;html=1;" edge="1" parent="1" source="pilot" target="spa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="GET /reports (Bearer JWT)" style="endArrow=block;html=1;" edge="1" parent="1" source="spa" target="api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="validate JWT" style="endArrow=block;html=1;dashed=1;" edge="1" parent="1" source="api" target="kc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="read prepared mart" style="endArrow=block;html=1;" edge="1" parent="1" source="api" target="ch">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="load mart" style="endArrow=block;html=1;" edge="1" parent="1" source="airflow" target="ch">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="extract" style="endArrow=block;html=1;" edge="1" parent="1" source="airflow" target="crm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

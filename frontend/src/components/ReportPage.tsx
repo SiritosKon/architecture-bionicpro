@@ -22,7 +22,26 @@ const ReportPage: React.FC = () => {
         }
       });
 
-      
+      if (response.status === 401 || response.status === 403) {
+        setError('Access denied');
+        return;
+      }
+      if (response.status === 404) {
+        setError('No report available for the processed period yet');
+        return;
+      }
+      if (!response.ok) {
+        throw new Error(`Request failed: ${response.status}`);
+      }
+
+      const report = await response.json();
+      const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `prosthesis-report-${report.period ?? 'latest'}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {

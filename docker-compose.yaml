@@ -40,3 +40,60 @@ services:
       REACT_APP_KEYCLOAK_URL: http://localhost:8080
       REACT_APP_KEYCLOAK_REALM: reports-realm
       REACT_APP_KEYCLOAK_CLIENT_ID: reports-frontend
+
+  crm_db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: crm
+      POSTGRES_USER: crm_user
+      POSTGRES_PASSWORD: crm_password
+    volumes:
+      - ./crm/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5434:5432"
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.3
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    volumes:
+      - ./clickhouse/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+
+  reports-service:
+    build:
+      context: ./reports-service
+      dockerfile: Dockerfile
+    environment:
+      KEYCLOAK_URL: http://keycloak:8080
+      KEYCLOAK_REALM: reports-realm
+      CLICKHOUSE_HOST: clickhouse
+      CLICKHOUSE_PORT: "8123"
+      CLICKHOUSE_DB: reports
+    ports:
+      - "8000:8000"
+    depends_on:
+      - clickhouse
+      - keycloak
+
+  airflow:
+    image: apache/airflow:2.9.3
+    command: standalone
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      _PIP_ADDITIONAL_REQUIREMENTS: "clickhouse-connect==0.8.3 psycopg2-binary==2.9.9"
+      CRM_DSN: "host=crm_db port=5432 dbname=crm user=crm_user password=crm_password"
+      CLICKHOUSE_HOST: clickhouse
+      CLICKHOUSE_PORT: "8123"
+      CLICKHOUSE_DB: reports
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+    ports:
+      - "8081:8080"
+    depends_on:
+      - crm_db
+      - clickhouse

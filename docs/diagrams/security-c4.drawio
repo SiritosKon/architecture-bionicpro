@@ -1,0 +1,45 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Security-C4-Containers" id="security">
+    <mxGraphModel dx="1000" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="826" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="pilot" value="Pilot (Person)&#10;uses Android/iOS/Web app" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="spa" value="SPA Frontend [React]&#10;Auth Code + PKCE (S256)&#10;holds only HttpOnly session cookie" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="320" y="70" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="bff" value="BFF [reports-service]&#10;keeps IdP access/refresh tokens&#10;server-side; issues cookie session" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="620" y="70" width="230" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="kc" value="Keycloak [IdP / Broker]&#10;Auth Code + PKCE&#10;Identity Brokering per country" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="620" y="230" width="230" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ldap" value="External Directory [LDAP]&#10;account source in country of&#10;representation (local PII storage)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="620" y="390" width="230" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="idp" value="National IdPs&#10;(country A / country B / ...)&#10;external authentication services" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="920" y="230" width="200" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" style="endArrow=block;html=1;" edge="1" parent="1" source="pilot" target="spa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="cookie session (no IdP tokens)" style="endArrow=block;html=1;" edge="1" parent="1" source="spa" target="bff">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="Auth Code + PKCE / token exchange" style="endArrow=block;html=1;" edge="1" parent="1" source="bff" target="kc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="user federation" style="endArrow=block;html=1;" edge="1" parent="1" source="kc" target="ldap">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="brokering (OIDC/SAML)" style="endArrow=block;html=1;" edge="1" parent="1" source="kc" target="idp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
