@@ -1,50 +1,80 @@
 <mxfile host="app.diagrams.net">
-  <diagram name="Reports-C4-Containers" id="reports">
-    <mxGraphModel dx="1000" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="826" math="0" shadow="0">
+  <diagram name="Reports-C4" id="reports">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1200" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
 
-        <mxCell id="pilot" value="Pilot (Person)&#10;requests own report" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry x="40" y="80" width="170" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="spa" value="SPA Frontend [React]&#10;'Download report' button&#10;Bearer JWT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="270" y="70" width="200" height="90" as="geometry" />
-        </mxCell>
-        <mxCell id="api" value="Reports API [FastAPI]&#10;GET /reports&#10;JWT + role prothetic_user&#10;returns only own report" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="530" y="60" width="220" height="110" as="geometry" />
-        </mxCell>
-        <mxCell id="kc" value="Keycloak [IdP]&#10;issues/validates JWT (JWKS)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
-          <mxGeometry x="270" y="230" width="200" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="ch" value="OLAP [ClickHouse]&#10;mart user_reports&#10;ORDER BY (user_id, period)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
-          <mxGeometry x="820" y="60" width="220" height="100" as="geometry" />
-        </mxCell>
-        <mxCell id="airflow" value="Airflow [ETL DAG]&#10;crm_to_olap_reports&#10;@daily: extract -> aggregate -> load" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
-          <mxGeometry x="820" y="230" width="220" height="100" as="geometry" />
-        </mxCell>
-        <mxCell id="crm" value="CRM / DB [Postgres]&#10;clients + telemetry (sensors)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
-          <mxGeometry x="820" y="390" width="220" height="80" as="geometry" />
+        <mxCell id="boundary" value="BionicPRO&#10;[Software System]" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;fillColor=none;strokeColor=#666666;verticalAlign=bottom;align=left;fontSize=12;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="20" width="1520" height="1080" as="geometry" />
         </mxCell>
 
-        <mxCell id="e1" style="endArrow=block;html=1;" edge="1" parent="1" source="pilot" target="spa">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="purchaser" value="Покупатель протеза&#10;[Person]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8c8c9a;strokeColor=#5f5f6e;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="170" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="e2" value="GET /reports (Bearer JWT)" style="endArrow=block;html=1;" edge="1" parent="1" source="spa" target="api">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="operator" value="Оператор производства&#10;[Person]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0b3d6b;strokeColor=#082a4a;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1930" y="60" width="180" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="e3" value="validate JWT" style="endArrow=block;html=1;dashed=1;" edge="1" parent="1" source="api" target="kc">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="pilot" value="Пилот протеза&#10;[Person]&#10;запрашивает свой отчёт" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8c8c9a;strokeColor=#5f5f6e;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="40" y="480" width="180" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="e4" value="read prepared mart" style="endArrow=block;html=1;" edge="1" parent="1" source="api" target="ch">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="ml" value="ML-инженер&#10;[Person]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0b3d6b;strokeColor=#082a4a;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1930" y="900" width="180" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="e5" value="load mart" style="endArrow=block;html=1;" edge="1" parent="1" source="airflow" target="ch">
-          <mxGeometry relative="1" as="geometry" />
+
+        <mxCell id="shop" value="Интернет-магазин&#10;[Container: Битрикс24]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1f8fd6;strokeColor=#10629e;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="660" y="60" width="210" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="e6" value="extract" style="endArrow=block;html=1;" edge="1" parent="1" source="airflow" target="crm">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="crm" value="CRM&#10;[Container: Битрикс24]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1f8fd6;strokeColor=#10629e;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="60" width="210" height="80" as="geometry" />
         </mxCell>
+        <mxCell id="crmdb" value="CRM DB&#10;[Container: Oracle Database 12]" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#1f8fd6;strokeColor=#10629e;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="240" width="180" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="chip" value="Программа в чипе протеза&#10;[Software System]&#10;Чтение данных с датчиков, распознавание движений, передача телеметрии" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0b3d6b;strokeColor=#082a4a;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="330" y="460" width="240" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="app" value="Приложение для донастройки протеза&#10;[Container: iOS, Android]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1f8fd6;strokeColor=#10629e;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="300" y="690" width="230" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="api" value="API&#10;[Container: SpringBoot, ElasticSearch, ...]&#10;+ GET /reports (NEW)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1f8fd6;strokeColor=#10629e;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="780" y="850" width="240" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="db" value="База данных&#10;[Container: PostgreSQL]&#10;телеметрия с датчиков" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#1f8fd6;strokeColor=#10629e;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="660" width="200" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="cli" value="cli tool&#10;[Container: SpringBoot, ElasticSearch, ...]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1f8fd6;strokeColor=#10629e;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1720" y="660" width="230" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="airflow" value="Airflow — ETL [NEW]&#10;DAG crm_to_olap_reports @daily&#10;extract → aggregate → load" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="640" y="360" width="260" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="clickhouse" value="OLAP [ClickHouse] [NEW]&#10;витрина user_reports&#10;ORDER BY (user_id, period)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="660" y="560" width="240" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="keycloak" value="Keycloak [IdP]&#10;валидация JWT (JWKS), роль prothetic_user" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="300" y="870" width="240" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="r_e1" value="Выбор протеза, заказ, оплата" style="endArrow=block;html=1;" edge="1" parent="1" source="purchaser" target="shop"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r_e2" value="" style="endArrow=block;html=1;" edge="1" parent="1" source="operator" target="crm"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r_e3" value="" style="endArrow=block;html=1;" edge="1" parent="1" source="shop" target="crm"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r_e4" value="" style="endArrow=block;html=1;" edge="1" parent="1" source="crm" target="crmdb"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r_e5" value="Предоставление миосигналов" style="endArrow=block;html=1;" edge="1" parent="1" source="pilot" target="chip"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r_e6" value="" style="endArrow=block;html=1;" edge="1" parent="1" source="pilot" target="app"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r_e7" value="Управление протезом" style="endArrow=block;html=1;" edge="1" parent="1" source="app" target="chip"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r_e8" value="Отправка технической телеметрии" style="endArrow=block;html=1;" edge="1" parent="1" source="chip" target="api"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r_e9" value="GET /reports (Bearer JWT)" style="endArrow=block;html=1;" edge="1" parent="1" source="app" target="api"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r_e10" value="" style="endArrow=block;html=1;" edge="1" parent="1" source="api" target="db"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r_e11" value="" style="endArrow=block;html=1;" edge="1" parent="1" source="cli" target="db"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r_e12" value="" style="endArrow=block;html=1;" edge="1" parent="1" source="ml" target="cli"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="r_a1" value="extract: клиенты из CRM" style="endArrow=block;html=1;strokeColor=#d79b00;strokeWidth=2;" edge="1" parent="1" source="airflow" target="crmdb"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r_a2" value="extract: телеметрия" style="endArrow=block;html=1;strokeColor=#d79b00;strokeWidth=2;" edge="1" parent="1" source="airflow" target="db"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r_a3" value="load витрину" style="endArrow=block;html=1;strokeColor=#d79b00;strokeWidth=2;" edge="1" parent="1" source="airflow" target="clickhouse"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r_a4" value="read prepared report" style="endArrow=block;html=1;strokeColor=#9673a6;strokeWidth=2;" edge="1" parent="1" source="api" target="clickhouse"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="r_a5" value="validate JWT (JWKS)" style="endArrow=block;html=1;dashed=1;strokeColor=#82b366;strokeWidth=2;" edge="1" parent="1" source="api" target="keycloak"><mxGeometry relative="1" as="geometry" /></mxCell>
       </root>
     </mxGraphModel>
   </diagram>
