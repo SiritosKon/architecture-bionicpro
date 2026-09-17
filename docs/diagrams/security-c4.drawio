@@ -1,11 +1,11 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Security-C4" id="security">
-    <mxGraphModel dx="2069" dy="1445" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1200" math="0" shadow="0">
+    <mxGraphModel dx="1626" dy="1136" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1200" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="boundary" parent="1" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;fillColor=none;strokeColor=#666666;verticalAlign=bottom;align=left;fontSize=12;spacing=10;" value="BionicPRO&#xa;[Software System]" vertex="1">
-          <mxGeometry height="1080" width="1070" x="580" y="20" as="geometry" />
+          <mxGeometry height="1040" width="1070" x="580" y="20" as="geometry" />
         </mxCell>
         <mxCell id="purchaser" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8c8c9a;strokeColor=#5f5f6e;fontColor=#ffffff;" value="Покупатель протеза&#xa;[Person]" vertex="1">
           <mxGeometry height="90" width="170" x="40" y="55" as="geometry" />
@@ -43,10 +43,10 @@
         <mxCell id="cli" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1f8fd6;strokeColor=#10629e;fontColor=#ffffff;" value="cli tool&#xa;[Container: SpringBoot, ElasticSearch, ...]" vertex="1">
           <mxGeometry height="90" width="230" x="1700" y="495" as="geometry" />
         </mxCell>
-        <mxCell id="keycloak" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#000000;" value="Keycloak [IdP / Broker]&#xa;[Container: NEW]&#xa;Auth Code + PKCE (S256)" vertex="1">
+        <mxCell id="keycloak" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#000000;" value="Keycloak [IdP / Broker]&lt;br&gt;&lt;br&gt;Auth Code + PKCE (S256)" vertex="1">
           <mxGeometry height="90" width="240" x="800" y="735" as="geometry" />
         </mxCell>
-        <mxCell id="bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#000000;" value="BFF / token handler&#xa;[Container: NEW]&#xa;хранит access/refresh IdP на сервере, в браузер — только HttpOnly cookie" vertex="1">
+        <mxCell id="bff" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#000000;" value="BFF / token handler&lt;br&gt;хранит access/refresh IdP на сервере, в браузер — только HttpOnly cookie" vertex="1">
           <mxGeometry height="110" width="240" x="630" y="530" as="geometry" />
         </mxCell>
         <mxCell id="ldap" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontColor=#000000;" value="External Directory [LDAP]&#xa;[EXTERNAL]&#xa;источник учёток в стране представительства, локальное хранение ПДн" vertex="1">
