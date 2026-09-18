@@ -26,7 +26,7 @@ docker compose up -d
 | Keycloak | http://localhost:8080 (admin/admin) |
 | Frontend | http://localhost:3000 |
 | Reports API | http://localhost:8000 (`/reports`, `/health`) |
-| Airflow | http://localhost:8081 |
+| Airflow | http://localhost:8081 (admin/admin) |
 | ClickHouse | http://localhost:8123 |
 
 ---
