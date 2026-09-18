@@ -90,10 +90,10 @@
             <mxPoint x="2006" y="585" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="r_a1" edge="1" parent="1" source="airflow" style="endArrow=block;html=1;strokeColor=#d79b00;strokeWidth=2;" target="crmdb" value="extract: клиенты (CRM)">
+        <mxCell id="r_a1" edge="1" parent="1" source="crmdb" style="endArrow=block;html=1;strokeColor=#d79b00;strokeWidth=2;" target="airflow" value="extract: клиенты (CRM)">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="r_a2" edge="1" parent="1" source="airflow" style="endArrow=block;html=1;strokeColor=#d79b00;strokeWidth=2;" target="db" value="extract: телеметрия">
+        <mxCell id="r_a2" edge="1" parent="1" source="db" style="endArrow=block;html=1;strokeColor=#d79b00;strokeWidth=2;" target="airflow" value="extract: телеметрия (датчики)">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="r_a3" edge="1" parent="1" source="airflow" style="endArrow=block;html=1;strokeColor=#d79b00;strokeWidth=2;" target="clickhouse" value="load витрину">
