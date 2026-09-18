@@ -13,7 +13,7 @@
 | `airflow/` | ETL-DAG: выгрузка из CRM/DB в OLAP и построение витрины |
 | `clickhouse/` | DDL витрины `user_reports` |
 | `crm/` | Источник-заглушка: клиенты + телеметрия датчиков (Postgres) |
-| `docs/diagrams/` | Диаграммы C4 (`.drawio` + `.png`) |
+| `diagrams/` | Диаграммы C4 (`.drawio` + `.png`) |
 
 ## Запуск
 
@@ -33,7 +33,7 @@ docker compose up -d
 
 ## Задание 1. Повышение безопасности
 
-![Диаграмма C4 — безопасность](docs/diagrams/security-c4.drawio.png)
+![Диаграмма C4 — безопасность](diagrams/security-c4.drawio.png)
 
 **Архитектура (задача 1.1):**
 - **Унификация доступа** — единый вход через `Keycloak`; учётки берутся из внешнего `LDAP`-каталога (User Federation), расположенного в стране представительства, с локальным хранением ПДн.
@@ -61,11 +61,11 @@ curl -s -o /dev/null -D - \
 
 ## Задание 2. Сервис отчётов
 
-![Диаграмма C4 — отчёты](docs/diagrams/reports-c4.drawio.png)
+![Диаграмма C4 — отчёты](diagrams/reports-c4.drawio.png)
 
 **Архитектура (задача 2.1):** данные готовятся заранее (ETL), отчёт отдаётся мгновенно из OLAP через существующий API.
 
-**Подготовка данных (задача 2.2) — `airflow/dags/etl_reports_dag.py`:**
+**Подготовка данных (задача 2.2) — `airflow/etl_reports_dag.py`:**
 - DAG `crm_to_olap_reports`, расписание `@daily`.
 - Extract из двух источников (клиенты из CRM, телеметрия с датчиков) → агрегация в разрезе пользователя и периода → load в витрину.
 - Витрина `reports.user_reports` (`clickhouse/init.sql`): `ReplacingMergeTree`, `ORDER BY (user_id, period)` — быстрый доступ по пользователю.
