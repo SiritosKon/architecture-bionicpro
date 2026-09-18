@@ -7,16 +7,16 @@ from fastapi import Depends, FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from jose import jwt
 
-KEYCLOAK_URL = os.getenv("KEYCLOAK_URL", "http://keycloak:8080")
+KEYCLOAK_INTERNAL_URL = os.getenv("KEYCLOAK_INTERNAL_URL", "http://keycloak:8080")
 KEYCLOAK_REALM = os.getenv("KEYCLOAK_REALM", "reports-realm")
+ISSUER = os.getenv("KEYCLOAK_ISSUER", f"http://localhost:8080/realms/{KEYCLOAK_REALM}")
 REQUIRED_ROLE = os.getenv("REQUIRED_ROLE", "prothetic_user")
 
 CLICKHOUSE_HOST = os.getenv("CLICKHOUSE_HOST", "clickhouse")
 CLICKHOUSE_PORT = int(os.getenv("CLICKHOUSE_PORT", "8123"))
 CLICKHOUSE_DB = os.getenv("CLICKHOUSE_DB", "reports")
 
-ISSUER = f"{KEYCLOAK_URL}/realms/{KEYCLOAK_REALM}"
-CERTS_URL = f"{ISSUER}/protocol/openid-connect/certs"
+CERTS_URL = f"{KEYCLOAK_INTERNAL_URL}/realms/{KEYCLOAK_REALM}/protocol/openid-connect/certs"
 
 app = FastAPI(title="BionicPRO Reports Service")
 app.add_middleware(
