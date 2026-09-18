@@ -114,8 +114,7 @@ services:
         airflow db migrate
         airflow users create --username admin --password admin \
           --firstname Admin --lastname User --role Admin --email admin@example.com || true
-        airflow scheduler &
-        exec airflow webserver
+        exec airflow standalone
     environment:
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
       _PIP_ADDITIONAL_REQUIREMENTS: "clickhouse-connect==0.8.3 psycopg2-binary==2.9.9"
