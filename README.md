@@ -30,7 +30,16 @@ docker compose ps                 # дождаться (healthy) у всех с�
 | Airflow | http://localhost:8081 (admin/admin) |
 | ClickHouse | http://localhost:8123 |
 
-Тестовые пользователи Keycloak: `prothetic1..3 / prothetic123` (роль `prothetic_user`), `user1 / password123` (роль `user`), `admin1 / admin123`.
+Тестовые пользователи Keycloak (realm `reports-realm`):
+
+```
+prothetic1 / prothetic123   роль: prothetic_user   (доступ к отчёту)
+prothetic2 / prothetic123   роль: prothetic_user
+prothetic3 / prothetic123   роль: prothetic_user
+user1      / password123     роль: user             (нет доступа к отчёту → 403)
+user2      / password123     роль: user
+admin1     / admin123        роль: administrator
+```
 
 ---
 
